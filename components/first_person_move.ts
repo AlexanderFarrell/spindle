@@ -59,6 +59,8 @@ export class FirstPersonMove extends Component implements Updatable {
 	private _physicsBody: PhysicsBody | null = null;
 	private _verticalSpeed: number = 0;
 	private _controller: RAPIER.KinematicCharacterController | null = null;
+	private _lastAirTime: number = 0;
+	private _resetAirTime: boolean = false;
 
 	onStart(): void {
 		Engine.world.updatables.add(this);
@@ -102,6 +104,7 @@ export class FirstPersonMove extends Component implements Updatable {
 			(Engine.input.isDown('w') ? -1.0 : 0.0) + // Move forward
 			(Engine.input.isDown('s') ?  1.0 : 0.0);  // Move Backward
 
+
 		this._targetYaw -= Engine.input.mouseDeltaX * this.yawSensitivity * Engine.time.GameSpeed;
 		this._targetPitch -= Engine.input.mouseDeltaY * this.pitchSensitivity * Engine.time.GameSpeed;
 
@@ -139,14 +142,24 @@ export class FirstPersonMove extends Component implements Updatable {
 			// Since we are on the ground... check if space is
 			// down, and jump
 			if (Engine.input.isDown(' ')) {
+				this._resetAirTime = true;
 				this._verticalSpeed = this.jumpSpeed;
 			}
 		} else {
+			if (this._resetAirTime) {
+				this._resetAirTime = false;
+				this._lastAirTime = 0;
+			}
 			// Otherwise, if we are in the air, fall
 			this._verticalSpeed += Engine.physics.gravity[1] * Engine.time.Delta;
 
+			if (Engine.input.isDown("o")) {
+				this._verticalSpeed -= this.movementSpeed * Engine.time.Delta;
+			}
+
 			// And ensure we don't go over terminal velocity.
 			this._verticalSpeed = Math.max(this._verticalSpeed, this.maxFallSpeed);
+			this._lastAirTime += Engine.time.Delta;
 		}
 
 		// Where are we going? We will give this to Rapier3D to see if its a valid position
@@ -181,5 +194,9 @@ export class FirstPersonMove extends Component implements Updatable {
 		
 		quat.fromEuler(this._location!.rotation, this._pitch, this._yaw, 0.0);
 		quat.fromEuler(Engine.visual.camera.location.rotation, this._pitch, this._yaw, 0.0);
+	}
+
+	public get airtime() {
+		return this._lastAirTime;
 	}
 }

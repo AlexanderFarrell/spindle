@@ -108,7 +108,7 @@ export class PerspectiveCamera extends Camera {
 
 	// The furthest distance by which objects are visible. If you increase this, you
 	// may need to increase the nearPlane as well.
-	public farPlane: number = 200.0;
+	public farPlane: number = 800.0;
 
 	public constructor(aspectRatio: number, fov: number = 85.0) {
 		super();

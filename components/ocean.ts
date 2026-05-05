@@ -1,17 +1,19 @@
 import { mat4 } from "gl-matrix";
 import { OceanFragmentGLSL, OceanVertexGLSL } from "../assets/asset_map";
 import { Engine } from "../main";
-import { Material, UniformMat4 } from "../visual/material";
+import { Material, UniformMat4, UniformVec3, UniformVec4 } from "../visual/material";
 import { Mesh, VertexAttribute } from "../visual/mesh";
 import { Shader, ShaderSource, ShaderType } from "../visual/shader";
 import type { Drawable } from "../visual/visual";
 import { Component } from "../world/entity";
 import { Location } from "./location";
+import { Color } from "../visual/color";
 
 export class Ocean extends Component implements Drawable {
 	public level: number;
 	private _location: Location | null = null;
 	private _mvpMatrix: mat4 = mat4.create();
+	public color: Color = new Color(0.2, 0.5, 0.9, 0.9);
 
 	public constructor(level: number = 0) {
 		super();
@@ -32,7 +34,8 @@ export class Ocean extends Component implements Drawable {
 			mesh.buffer();
 			shader.setup();
 			material = new Material(shader,
-				new UniformMat4("u_camera", Engine.visual.camera.matrix)
+				new UniformMat4("u_camera", Engine.visual.camera.matrix),
+				new UniformVec4("u_ocean_color", this.color.red, this.color.green, this.color.blue, this.color.alpha)
 			);
 		}
 	}

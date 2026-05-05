@@ -114,3 +114,18 @@ export class UniformVec3 extends Uniform {
 		getGL().uniform3fv(this.location, this.value);
 	}
 }
+
+// Holds 3 numbers, like XYZ, or red, green and blue.
+export class UniformVec4 extends Uniform {
+	public value: [number, number, number, number];
+
+	public constructor(name: string, x: number, y: number, z: number, w: number) {
+		super(name);
+		this.value = [x, y, z, w];
+	}
+
+	bind(_shader: Shader): void {
+		getGL().uniform4fv(this.location, this.value);
+	}
+}
+

@@ -32,6 +32,14 @@ export class Array2D<T> {
 		return this._data[(y * this._width) + x];
 	}
 
+	public iterate_set(func: (x: number, y: number) => T) {
+		for (let y = 0; y < this.height; y++) {
+			for (let x = 0; x < this.width; x++) {
+				this.set(func(x, y), x, y)
+			}
+		}
+	}
+
 	public get width() {
 		return this._width;
 	}

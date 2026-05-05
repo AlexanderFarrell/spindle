@@ -2,8 +2,10 @@
 
 precision highp float;
 
+uniform vec4 u_ocean_color;
+
 out vec4 fragColor;
 
 void main() {
-	fragColor = vec4(0.2, 0.5, 0.9, 0.9);
+	fragColor = u_ocean_color;
 }
