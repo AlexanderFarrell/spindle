@@ -29,7 +29,7 @@ chmod +x create-spindle-game.sh
 ./create-spindle-game.sh my-game
 ```
 
-Or specify a specific version of Spindle (recommended).
+Or specify a specific version of Spindle (recommended). See [tags](https://github.com/AlexanderFarrell/spindle/tags) for each version.
 
 ```sh
 ./create-spindle-game.sh my-game --tag v1.0.0
@@ -50,7 +50,7 @@ Invoke-WebRequest -Uri https://raw.githubusercontent.com/AlexanderFarrell/spindl
 .\create-spindle-game.ps1 my-game
 ```
 
-Or specify a specific version of Spindle (recommended)
+Or specify a specific version of Spindle (recommended). See [tags](https://github.com/AlexanderFarrell/spindle/tags) for each version.
 
 ```pwsh
 .\create-spindle-game.ps1 my-game -Tag v1.0.0
