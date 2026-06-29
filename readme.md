@@ -17,7 +17,52 @@ a few games published on YouTube.
 
 ## Quick Start
 
-Run the included 
+This repo includes a script you can run to scaffold a new project with Spindle.
+Run the following to create a new project:
+
+### MacOS / Linux / BSD
+
+```sh
+# MacOS / Linux / FreeBSD
+curl -O https://raw.githubusercontent.com/AlexanderFarrell/spindle/master/create-spindle-game.sh
+chmod +x create-spindle-game.sh
+./create-spindle-game.sh my-game
+```
+
+Or specify a specific version of Spindle (recommended).
+
+```sh
+./create-spindle-game.sh my-game --tag v1.0.0
+```
+
+Then run the following to begin working
+
+```sh
+cd my-game
+npm install  # Installs dependencies
+npm run dev  # Runs the game with hot reloading
+```
+
+### Windows (With Powershell)
+
+```pwsh
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/AlexanderFarrell/spindle/master/create-spindle-game.ps1 -OutFile create-spindle-game.ps1
+.\create-spindle-game.ps1 my-game
+```
+
+Or specify a specific version of Spindle (recommended)
+
+```pwsh
+.\create-spindle-game.ps1 my-game -Tag v1.0.0
+```
+
+Then run the following to begin working
+
+```sh
+cd my-game
+npm install  # Installs dependencies
+npm run dev  # Runs the game with hot reloading
+```
 
 ## Manual Initialization
 
